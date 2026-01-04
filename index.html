@@ -478,6 +478,39 @@
       color: #7a8da3;
     }
   </style>
+  /* Unified feature grid (RU/EN) */
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:10px;
+  margin-top:14px;
+  margin-bottom:16px;
+}
+
+@media (max-width: 860px){
+  .feature-grid{ grid-template-columns:1fr; }
+}
+
+.feature-item{
+  background:#f1f6fc;
+  border:1px solid #e0e8f3;
+  border-radius: var(--radius-md);
+  padding:10px 12px;
+}
+
+.feature-title{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:0.02em;
+  color: var(--green);
+  margin-bottom:4px;
+}
+
+.feature-text{
+  font-size:13px;
+  color:#355271;
+  line-height:1.45;
+}
 </head>
 <body class="lang-ru">
   <div class="page">
