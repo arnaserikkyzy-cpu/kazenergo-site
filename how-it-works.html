@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>KazEnergo Rooftop — Как это работает</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="KazEnergo Rooftop — how it works: rooftop superstructure enabling combined solar and wind generation in cities, improving roof reliability and resident comfort." />
+  <style>
+    :root {
+      --blue: #0b5fa4;
+      --green: #2c9b4b;
+      --dark: #163045;
+      --light: #f5f8fb;
+      --border: #dde5f0;
+      --accent: #ffb44c;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(8, 26, 48, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eef5ff 0, #fafdff 40%, #ffffff 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.lang-ru .lang-en { display: none; }
+    body.lang-en .lang-ru { display: none; }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+      flex: 1;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-wrap img { height: 56px; width: auto; }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--dark);
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #5c728a;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px;
+      border-radius: var(--radius-pill);
+      background: #e4edf7;
+      box-shadow: inset 0 0 0 1px #d2ddef;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4a6280;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background: #ffffff;
+      color: var(--blue);
+      box-shadow: 0 8px 18px rgba(14, 82, 150, 0.25);
+    }
+
+    @media (max-width: 860px) {
+      header { flex-direction: column; align-items: flex-start; }
+      .logo-wrap img { height: 52px; }
+    }
+
+    /* TOP NAV */
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .crumbs {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      font-size: 13px;
+      color: #5c728a;
+    }
+
+    .crumbs a {
+      color: #355271;
+      background: #ffffff;
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      box-shadow: inset 0 0 0 1px #d8e4f3;
+    }
+
+    .crumbs a:hover { text-decoration: none; box-shadow: 0 10px 22px rgba(11, 44, 82, 0.10); }
+
+    /* HERO */
+    .hero {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 26px 24px 18px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #4a6a86;
+      margin-bottom: 14px;
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+    }
+
+    h1 {
+      font-size: 28px;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    h1 span { color: var(--blue); }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: #4a6075;
+      max-width: 46rem;
+      margin-bottom: 14px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      background: #f1f6fc;
+      font-size: 12px;
+      color: #355271;
+    }
+
+    .pill b { color: var(--green); font-weight: 700; margin-right: 4px; }
+
+    .toc {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc a {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      background: #ffffff;
+      color: #355271;
+      box-shadow: inset 0 0 0 1px #d8e4f3;
+      text-decoration: none;
+    }
+
+    .toc a:hover { box-shadow: 0 10px 22px rgba(11, 44, 82, 0.10); }
+
+    /* SECTIONS */
+    .sections {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    section.block {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 16px;
+      box-shadow: 0 10px 28px rgba(11, 44, 82, 0.12);
+      border: 1px solid #e0e8f3;
+    }
+
+    section.block h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    section.block h2 span { color: var(--blue); }
+
+    section.block h3 {
+      font-size: 16px;
+      margin: 14px 0 8px;
+      color: var(--dark);
+    }
+
+    section.block p {
+      font-size: 14px;
+      color: #47596f;
+      margin-bottom: 8px;
+    }
+
+    ul.clean {
+      list-style: none;
+      margin-top: 6px;
+    }
+
+    ul.clean li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #455a73;
+    }
+
+    ul.clean li::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      top: 0;
+      color: var(--green);
+    }
+
+    .callout {
+      margin-top: 12px;
+      border-radius: var(--radius-md);
+      padding: 12px 12px 10px;
+      background: linear-gradient(160deg, rgba(11, 95, 164, 0.08), rgba(44, 155, 75, 0.07));
+      border: 1px solid rgba(11, 95, 164, 0.18);
+      color: #355271;
+      font-size: 14px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      background: #f2f6fb;
+      color: #51627b;
+      border: 1px solid #e0e8f3;
+    }
+
+    /* CONTACTS */
+    .contacts {
+      margin-top: 20px;
+      background: #0f2b43;
+      color: #e6f0fb;
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .contacts-main { font-size: 14px; }
+    .contacts-main b { color: #ffffff; }
+
+    .contacts-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .contacts a { color: #cde4ff; text-decoration: none; }
+    .contacts a:hover { text-decoration: underline; }
+
+    footer {
+      margin-top: 20px;
+      font-size: 11px;
+      text-align: center;
+      color: #7a8da3;
+    }
+  </style>
+</head>
+
+<body class="lang-ru">
+  <div class="page">
+    <header>
+      <div class="logo-wrap">
+        <img src="logo-kazenergo.png" alt="KazEnergo logo" />
+        <div>
+          <div class="brand-title">KazEnergo</div>
+          <div class="brand-sub">Innovation and Research Company</div>
+        </div>
+      </div>
+
+      <div class="lang-switch" aria-label="Language switcher">
+        <button class="lang-btn active" data-lang-btn="ru">RU</button>
+        <button class="lang-btn" data-lang-btn="en">EN</button>
+      </div>
+    </header>
+
+    <div class="topbar">
+      <div class="crumbs">
+        <a href="index.html" class="lang-ru">← На главную</a>
+        <a href="index.html" class="lang-en">← Back to Home</a>
+      </div>
+    </div>
+
+    <div class="hero" id="top">
+      <div class="eyebrow">
+        <div class="eyebrow-dot"></div>
+        <span class="lang-ru">Как это работает</span>
+        <span class="lang-en">How it works</span>
+      </div>
+
+      <div class="lang-ru">
+        <h1>Надкрышная технология, которая делает <span>ВИЭ на крышах</span> реально масштабируемыми</h1>
+        <p class="hero-subtitle">
+          KazEnergo Rooftop — инженерное решение для городской застройки: крыша становится
+          высокоэффективной площадкой для солнечной и ветровой генерации, а также получает
+          усиленную защиту от протечек и выступающих элементов.
+        </p>
+      </div>
+
+      <div class="lang-en">
+        <h1>A rooftop technology that makes <span>urban RES</span> truly scalable</h1>
+        <p class="hero-subtitle">
+          KazEnergo Rooftop is an engineering solution for cities: it turns rooftops into a high-efficiency
+          platform for combined solar and wind generation while improving roof reliability and reducing leak risks.
+        </p>
+      </div>
+
+      <div class="pill-row">
+        <div class="pill lang-ru"><b>Комбо</b> солнце + ветер на крыше</div>
+        <div class="pill lang-en"><b>Hybrid</b> solar + wind on rooftops</div>
+
+        <div class="pill lang-ru"><b>Безопасно</b> без вертикальных опор</div>
+        <div class="pill lang-en"><b>Safe</b> no tall vertical masts</div>
+
+        <div class="pill lang-ru"><b>Город</b> генерация рядом с потребителем</div>
+        <div class="pill lang-en"><b>Urban</b> generation at the point of use</div>
+      </div>
+
+      <div class="toc">
+        <a href="#why" class="lang-ru">Почему раньше не работало</a>
+        <a href="#why" class="lang-en">Why it didn’t work before</a>
+
+        <a href="#solution" class="lang-ru">Ключевое решение</a>
+        <a href="#solution" class="lang-en">Key solution</a>
+
+        <a href="#roof-plant" class="lang-ru">Крыша как электростанция</a>
+        <a href="#roof-plant" class="lang-en">Roof as a power plant</a>
+
+        <a href="#benefits" class="lang-ru">Эффективность и преимущества</a>
+        <a href="#benefits" class="lang-en">Efficiency & advantages</a>
+
+        <a href="#economics" class="lang-ru">Экономика</a>
+        <a href="#economics" class="lang-en">Economics</a>
+
+        <a href="#ip" class="lang-ru">IP / Патенты</a>
+        <a href="#ip" class="lang-en">IP / Patents</a>
+      </div>
+    </div>
+
+    <div class="sections">
+
+      <!-- 1) WHY -->
+      <section class="block" id="why">
+        <div class="lang-ru">
+          <h2><span>Почему</span> ВИЭ на крышах не работали раньше</h2>
+          <h3>Проблемы обычных крыш</h3>
+          <ul class="clean">
+            <li>Загромождённость и риск повреждения кровли ограничивали размещение солнечных панелей.</li>
+            <li>Конструкция крыш не позволяла эффективно использовать мощные ветровые потоки на высоте зданий.</li>
+            <li>Вертикальные опоры создавали высокий риск падения при сильных ветровых нагрузках.</li>
+          </ul>
+          <div class="callout">
+            <b>Вывод:</b> обычные городские крыши конструктивно не были готовы к массовому размещению ВИЭ.
+          </div>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Why</span> rooftop RES didn’t work before</h2>
+          <h3>Typical roof limitations</h3>
+          <ul class="clean">
+            <li>Cluttered rooftops and the risk of roof damage limited solar deployment.</li>
+            <li>Roof geometry did not allow effective use of strong winds at building height.</li>
+            <li>Vertical masts increased safety risks under extreme wind loads.</li>
+          </ul>
+          <div class="callout">
+            <b>Conclusion:</b> typical urban roofs were not structurally ready for mass-scale rooftop RES.
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) KEY SOLUTION -->
+      <section class="block" id="solution">
+        <div class="lang-ru">
+          <h2><span>Ключевое решение</span>: устранены конструктивные ограничения</h2>
+          <p>Технология впервые делает возможным:</p>
+          <ul class="clean">
+            <li>совмещать солнечную и ветровую генерацию на крыше;</li>
+            <li>использовать крышу как мощный энергетический актив;</li>
+            <li>масштабировать ВИЭ в городской застройке без отвода земли.</li>
+          </ul>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Key solution</span>: removing structural constraints</h2>
+          <p>The technology makes it possible to:</p>
+          <ul class="clean">
+            <li>combine solar and wind generation on rooftops;</li>
+            <li>turn rooftops into a high-value energy asset;</li>
+            <li>scale urban RES without land allocation.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 3) ESSENCE -->
+      <section class="block" id="essence">
+        <div class="lang-ru">
+          <h2><span>Суть</span> изобретения</h2>
+          <ul class="clean">
+            <li>На крыше возводится надкрышная конструкция (лёгкая или капитальная).</li>
+            <li>Элементы обычной кровли (лифты, вентиляция) и вспомогательное оборудование остаются внутри надстройки.</li>
+            <li>Верхняя и боковые поверхности надстройки становятся свободными и пригодными для ВИЭ.</li>
+            <li>Солнечные панели и ветрогенератор не касаются крыши — кровля не повреждается.</li>
+          </ul>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Essence</span> of the invention</h2>
+          <ul class="clean">
+            <li>A rooftop superstructure is built (lightweight or capital).</li>
+            <li>Existing roof elements (lift shafts, ventilation) remain inside, without changing their position.</li>
+            <li>Top and side surfaces become free and fully usable for RES equipment.</li>
+            <li>Solar and wind equipment does not penetrate or touch the original roof — minimizing damage and leak risks.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4) SOLAR -->
+      <section class="block" id="solar">
+        <div class="lang-ru">
+          <h2><span>Генерация</span> солнечной энергии</h2>
+          <ul class="clean">
+            <li>Вся верхняя поверхность — под солнечные панели.</li>
+            <li>Дополнительно используются боковые грани.</li>
+            <li>Электроэнергия производится непосредственно на месте потребления.</li>
+          </ul>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Solar</span> generation</h2>
+          <ul class="clean">
+            <li>The entire top surface is available for solar panels.</li>
+            <li>Side surfaces can be used additionally where appropriate.</li>
+            <li>Electricity is generated directly at the point of consumption.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 5) WIND -->
+      <section class="block" id="wind">
+        <div class="lang-ru">
+          <h2><span>Генерация</span> ветровой энергии</h2>
+          <ul class="clean">
+            <li>Внутреннее пространство надстройки принимает и концентрирует ветровые потоки.</li>
+            <li>Сужение воздушных каналов к центру обеспечивает ускорение ветрового потока.</li>
+            <li>Расширяется рабочий диапазон скоростей ветра, включая слабые и порывистые потоки.</li>
+            <li>Высота надстройки подбирается под требуемый объём выработки.</li>
+            <li>Ветрогенератор размещён в защитном укрытии — безопасная, малошумная и надёжная работа.</li>
+          </ul>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Wind</span> generation</h2>
+          <ul class="clean">
+            <li>The internal volume of the superstructure captures and concentrates wind from multiple directions.</li>
+            <li>Air channels narrow toward the center to accelerate airflow.</li>
+            <li>Operating wind-speed range expands, including low and gusty winds.</li>
+            <li>Superstructure height is selected based on required generation capacity.</li>
+            <li>The turbine is placed in a protective enclosure for safe, low-noise operation.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 6) RESULT FOR BUILDING -->
+      <section class="block" id="result">
+        <div class="lang-ru">
+          <h2><span>Результат</span> для здания</h2>
+          <h3>Что даёт технология</h3>
+          <ul class="clean">
+            <li>полное покрытие потребностей здания в электроэнергии (в зависимости от проекта);</li>
+            <li>аккумулирование и/или передача излишков в сеть;</li>
+            <li>энергонезависимость и рост энергоэффективности.</li>
+          </ul>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Building</span> outcome</h2>
+          <h3>What the technology provides</h3>
+          <ul class="clean">
+            <li>coverage of the building’s electricity needs (project-dependent);</li>
+            <li>storage and/or export of surplus energy to the grid;</li>
+            <li>higher energy independence and efficiency.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 7) ROOF AS POWER PLANT (BLOCK MUST STAY) -->
+      <section class="block" id="roof-plant">
+        <div class="lang-ru">
+          <h2><span>Крыша</span> как электростанция</h2>
+          <p>
+            Надкрышная конструкция формирует ровную и свободную верхнюю поверхность, а также
+            позволяет при необходимости использовать боковые грани. Внутреннее пространство
+            служит для приёма, концентрации и направления ветровых потоков к генератору.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Солнце + ветер</span>
+            <span class="tag">Без отвода земли</span>
+            <span class="tag">Генерация на месте</span>
+          </div>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Roof</span> as a power plant</h2>
+          <p>
+            The superstructure creates a flat, unobstructed top surface and can also utilize side surfaces.
+            The internal volume captures, concentrates and directs wind flows toward the generator.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Solar + wind</span>
+            <span class="tag">No land use</span>
+            <span class="tag">On-site generation</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8) EFFICIENCY & ADVANTAGES (BLOCK MUST STAY) -->
+      <section class="block" id="benefits">
+        <div class="lang-ru">
+          <h2><span>Эффективность</span> и преимущества</h2>
+
+          <h3>Преимущества</h3>
+          <ul class="clean">
+            <li>устранены проблемы обычных крыш, ранее блокировавшие внедрение ВИЭ в городах;</li>
+            <li>реализовано комбинированное использование солнечной и ветровой энергии;</li>
+            <li>крыша превращается из «проблемы» в источник дохода;</li>
+            <li>на крыше реализовано то, что ранее было возможно только при наземном размещении ВИЭ.</li>
+          </ul>
+
+          <h3>Эффективность по сравнению с наземными ВИЭ</h3>
+          <ul class="clean">
+            <li>вместо высотных башен — надстройка на здании, при этом боковая поверхность по периметру работает как зона захвата ветра на высоте;</li>
+            <li>генерация рядом с потребителем — меньше потерь и затрат на передачу;</li>
+            <li>готовая инфраструктура — без отвода земли, без строительства дорог и протяжённых сетей.</li>
+          </ul>
+
+          <h3>Дополнительные эффекты</h3>
+          <p><b>Повышение доверия жителей</b></p>
+          <ul class="clean">
+            <li>сплошная поверхность без выступающих элементов упрощает герметизацию → исключение протечек;</li>
+            <li>экранирование электромагнитного излучения → снижение радиофобии и рост доверия.</li>
+          </ul>
+
+          <div class="callout">
+            <b>Результат:</b> комфорт, безопасность и доверие жителей к инженерным решениям.
+          </div>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Efficiency</span> & advantages</h2>
+
+          <h3>Advantages</h3>
+          <ul class="clean">
+            <li>removes roof constraints that previously blocked urban RES deployment;</li>
+            <li>enables combined solar + wind generation on a building;</li>
+            <li>turns the rooftop from a “problem” into a revenue source;</li>
+            <li>delivers rooftop performance that was previously achievable mainly on ground-based RES sites.</li>
+          </ul>
+
+          <h3>Efficiency vs. ground-based RES</h3>
+          <ul class="clean">
+            <li>instead of tall towers — a superstructure on the building; perimeter side surfaces act as wind capture zones at height;</li>
+            <li>generation close to the consumer — lower transmission losses and costs;</li>
+            <li>uses existing urban infrastructure — no land allocation, roads, or long grid extensions.</li>
+          </ul>
+
+          <h3>Additional effects</h3>
+          <p><b>Higher resident trust</b></p>
+          <ul class="clean">
+            <li>continuous surfaces with fewer protrusions simplify waterproofing → fewer leaks;</li>
+            <li>electromagnetic shielding options → lower perceived risk and higher trust.</li>
+          </ul>
+
+          <div class="callout">
+            <b>Outcome:</b> improved comfort, safety, and public trust in engineering solutions.
+          </div>
+        </div>
+      </section>
+
+      <!-- 9) ECONOMICS (BLOCK MUST STAY) -->
+      <section class="block" id="economics">
+        <div class="lang-ru">
+          <h2><span>Экономика</span> проекта</h2>
+          <ul class="clean">
+            <li><b>Новое строительство</b> → окупаемость при продаже жилья (возврат инвестиций за счёт включения в цену квартиры при увеличении стоимости до +10%).</li>
+            <li><b>Реконструкция крыш</b> → окупаемость от 3 лет.</li>
+            <li>Подтверждено финансово-экономической моделью.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">Capex → Value uplift</span>
+            <span class="tag">Energy savings</span>
+            <span class="tag">Urban infra</span>
+          </div>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Project</span> economics</h2>
+          <ul class="clean">
+            <li><b>New developments</b> → payback through apartment sales (investment can be embedded in unit pricing; potential value uplift up to +10%).</li>
+            <li><b>Roof retrofit</b> → payback from ~3 years.</li>
+            <li>Supported by a financial & economic model.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">Capex → Value uplift</span>
+            <span class="tag">Energy savings</span>
+            <span class="tag">Urban infra</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10) READINESS -->
+      <section class="block" id="readiness">
+        <div class="lang-ru">
+          <h2><span>Готовность</span> к внедрению</h2>
+          <ul class="clean">
+            <li>Евразийский патент №049961 (май 2025, 8 стран), евраз. заявка № 202593173.</li>
+            <li>Создан и испытан функционирующий макет.</li>
+            <li>Следующий этап: пилот 20–30 м² → масштабирование.</li>
+          </ul>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Deployment</span> readiness</h2>
+          <ul class="clean">
+            <li>Eurasian patent №049961 (May 2025, 8 countries), Eurasian application № 202593173.</li>
+            <li>A working prototype has been built and tested.</li>
+            <li>Next step: 20–30 m² pilot → scale-up.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 11) IP (BLOCK MUST STAY) -->
+      <section class="block" id="ip">
+        <div class="lang-ru">
+          <h2><span>IP</span> / Патенты и масштабирование</h2>
+          <p>
+            Интеллектуальная собственность защищает технологию и обеспечивает основу для партнёрств и масштабирования
+            через пилоты, серийное внедрение и лицензирование.
+          </p>
+          <ul class="clean">
+            <li>пилотные проекты на крышах жилых и коммерческих зданий;</li>
+            <li>лицензирование и партнёрства с девелоперами, энергетическими и телеком-компаниями;</li>
+            <li>интеграция в городские программы ВИЭ.</li>
+          </ul>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>IP</span> / Patents & scaling</h2>
+          <p>
+            IP protection supports scaling through pilots, serial implementation and licensing partnerships.
+          </p>
+          <ul class="clean">
+            <li>pilot projects on residential and commercial rooftops;</li>
+            <li>licensing and partnerships with developers, utilities and telecom operators;</li>
+            <li>integration into city-level renewable programs.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 12) NATIONAL EFFECT -->
+      <section class="block" id="national">
+        <div class="lang-ru">
+          <h2><span>Национальный</span> эффект</h2>
+          <ul class="clean">
+            <li>масштабируется без отвода земли и строительства сетей;</li>
+            <li>быстрое и экономически эффективное внедрение ВИЭ в городах;</li>
+            <li>применимо к новому строительству и существующим зданиям.</li>
+          </ul>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>National</span> impact</h2>
+          <ul class="clean">
+            <li>scales without land allocation or extensive network build-out;</li>
+            <li>fast and cost-effective renewable deployment in cities;</li>
+            <li>applicable to new builds and existing buildings.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 13) SUMMARY -->
+      <section class="block" id="summary">
+        <div class="lang-ru">
+          <h2><span>Итог</span></h2>
+          <div class="callout">
+            <b>Надстройка — решение для массового внедрения ВИЭ в городах.</b><br/>
+            Производство энергии непосредственно на месте потребления •
+            снижение нагрузки на энергосистему при растущем спросе •
+            новый стандарт городской застройки.
+          </div>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Summary</span></h2>
+          <div class="callout">
+            <b>The rooftop superstructure enables mass-scale urban renewables.</b><br/>
+            Generation at the point of use • reduced grid stress amid rising demand • a new standard for urban development.
+          </div>
+        </div>
+      </section>
+
+      <!-- OPTIONAL MARKETING LINE (from your slide) -->
+      <section class="block" id="marketing">
+        <div class="lang-ru">
+          <h2><span>Маркетинговое</span> преимущество</h2>
+          <p><b>ЭкоДом — жильё с бесплатной энергией</b></p>
+          <div class="tag-row">
+            <span class="tag">Энергоэффективность</span>
+            <span class="tag">Безопасность</span>
+            <span class="tag">Надёжность</span>
+          </div>
+          <p style="margin-top:10px;font-size:13px;color:#6a7e95;">
+            *Если слово «ЭкоДом» не нужно в коммуникации — просто замените на «KazEnergo Rooftop» в этой строке.
+          </p>
+        </div>
+
+        <div class="lang-en">
+          <h2><span>Marketing</span> advantage</h2>
+          <p><b>EcoDom — housing with “free” energy (from onsite generation)</b></p>
+          <div class="tag-row">
+            <span class="tag">Energy efficiency</span>
+            <span class="tag">Safety</span>
+            <span class="tag">Reliability</span>
+          </div>
+          <p style="margin-top:10px;font-size:13px;color:#6a7e95;">
+            *If you don’t want the “EcoDom” naming, replace it with “KazEnergo Rooftop” in the line above.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="contacts" id="contact">
+      <div class="contacts-main">
+        <div class="lang-ru">
+          <b>KazEnergo, Innovation and Research Company</b><br />
+          Свяжитесь с нами, чтобы обсудить пилотный проект или партнёрство.
+        </div>
+        <div class="lang-en">
+          <b>KazEnergo, Innovation and Research Company</b><br />
+          Contact us to discuss a pilot project or potential partnership.
+        </div>
+      </div>
+      <div class="contacts-links">
+        <span>✉️ <a href="mailto:serik717@yahoo.com">serik717@yahoo.com</a></span>
+        <span>📞 <a href="tel:+77015225755">+7 701 522 57 55</a></span>
+        <span>🔗 <a href="https://www.linkedin.com/company/innovation-and-research-company-kazenergo-llp/" target="_blank" rel="noopener">LinkedIn</a></span>
+        <span>⬆️ <a href="#top" class="lang-ru">Наверх</a><a href="#top" class="lang-en">Top</a></span>
+      </div>
+    </div>
+
+    <footer>
+      ©️ <span id="year"></span> KazEnergo. How it works — rooftop hybrid renewables for cities.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const body = document.body;
+    const langButtons = document.querySelectorAll("[data-lang-btn]");
+
+    function setLang(lang) {
+      body.classList.remove("lang-ru", "lang-en");
+      body.classList.add("lang-" + lang);
+      langButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.langBtn === lang);
+      });
+      try { localStorage.setItem("kazenergo_lang", lang); } catch (e) {}
+    }
+
+    // restore
+    try {
+      const saved = localStorage.getItem("kazenergo_lang");
+      if (saved === "ru" || saved === "en") setLang(saved);
+    } catch (e) {}
+
+    langButtons.forEach((btn) => {
+      btn.addEventListener("click", () => setLang(btn.dataset.langBtn));
+    });
+  </script>
+</body>
+</html>
