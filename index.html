@@ -478,39 +478,6 @@
       color: #7a8da3;
     }
   </style>
-  /* Unified feature grid (RU/EN) */
-.feature-grid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:10px;
-  margin-top:14px;
-  margin-bottom:16px;
-}
-
-@media (max-width: 860px){
-  .feature-grid{ grid-template-columns:1fr; }
-}
-
-.feature-item{
-  background:#f1f6fc;
-  border:1px solid #e0e8f3;
-  border-radius: var(--radius-md);
-  padding:10px 12px;
-}
-
-.feature-title{
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:0.02em;
-  color: var(--green);
-  margin-bottom:4px;
-}
-
-.feature-text{
-  font-size:13px;
-  color:#355271;
-  line-height:1.45;
-}
 </head>
 <body class="lang-ru">
   <div class="page">
@@ -575,44 +542,27 @@
           </p>
         </div>
 
-     <div class="feature-grid">
-  <!-- RU -->
-  <div class="feature-item lang-ru">
-    <div class="feature-title">Надкрышная конструкция</div>
-    <div class="feature-text">Формирует ровную и свободную поверхность для размещения ВИЭ.</div>
-  </div>
-  <div class="feature-item lang-ru">
-    <div class="feature-title">Комбинированная генерация</div>
-    <div class="feature-text">Солнечная и ветровая энергия работают в едином контуре.</div>
-  </div>
-  <div class="feature-item lang-ru">
-    <div class="feature-title">Городская интеграция</div>
-    <div class="feature-text">Выработка электроэнергии — непосредственно на месте потребления.</div>
-  </div>
-  <div class="feature-item lang-ru">
-    <div class="feature-title">Инженерная защита</div>
-    <div class="feature-text">Снижает риск протечек и повышает надёжность кровли.</div>
+   <div class="pill-row">
+  <div class="pill">
+    <span class="lang-ru"><b>Надкрышная платформа</b> формирует ровную и свободную поверхность для размещения ВИЭ</span>
+    <span class="lang-en"><b>Rooftop platform</b> creates a flat and unobstructed surface for renewable systems</span>
   </div>
 
-  <!-- EN -->
-  <div class="feature-item lang-en">
-    <div class="feature-title">Rooftop superstructure</div>
-    <div class="feature-text">Creates a flat, unobstructed surface for renewable energy systems.</div>
+  <div class="pill">
+    <span class="lang-ru"><b>Единый энергетический контур</b> обеспечивает совместную работу солнечной и ветровой генерации</span>
+    <span class="lang-en"><b>Integrated energy contour</b> enables combined operation of solar and wind generation</span>
   </div>
-  <div class="feature-item lang-en">
-    <div class="feature-title">Hybrid energy generation</div>
-    <div class="feature-text">Solar and wind power operate within a single integrated contour.</div>
+
+  <div class="pill">
+    <span class="lang-ru"><b>Генерация на месте</b> электроэнергия производится непосредственно в здании</span>
+    <span class="lang-en"><b>On-site generation</b> electricity is produced directly within the building</span>
   </div>
-  <div class="feature-item lang-en">
-    <div class="feature-title">Urban integration</div>
-    <div class="feature-text">Electricity is generated directly at the point of consumption.</div>
-  </div>
-  <div class="feature-item lang-en">
-    <div class="feature-title">Engineering protection</div>
-    <div class="feature-text">Reduces leak risks and improves roof reliability.</div>
+
+  <div class="pill">
+    <span class="lang-ru"><b>Инженерная защита</b> конструкция снижает риск протечек и повышает надёжность кровли</span>
+    <span class="lang-en"><b>Engineering protection</b> the structure reduces leak risks and improves roof reliability</span>
   </div>
 </div>
-
         <div class="hero-cta-row">
           <a href="#contact" class="btn-primary">
             <span class="icon">➜</span>
